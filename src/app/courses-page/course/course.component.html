@@ -1,0 +1,18 @@
+<div class="course">
+  <div class="course-data-title">
+    <div class="course-title">
+      <h3>Video Course {{ course.id }}. {{ course.title }}</h3>
+    </div>
+    <div class="course-data">
+      <span>{{ course.durationMin }}</span>
+      <span>{{ course.creationDate }}</span>
+    </div>
+  </div>
+  <div class="course-description-config">
+    <div class="course-description">{{ course.description }}</div>
+    <div class="course-config">
+      <button class="course-config-edit">Edit</button>
+      <button (click)="deleteCourse(course.id)">Delete</button>
+    </div>
+  </div>
+</div>
