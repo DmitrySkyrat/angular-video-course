@@ -22,3 +22,24 @@ describe('CoursesPageComponent', (): void => {
     expect(component).toBeTruthy();
   });
 });
+describe('CoursesPageComponent', (): void => {
+  let courseComponent: CoursesPageComponent;
+  beforeEach((): void => {
+    courseComponent = new CoursesPageComponent();
+  });
+  it('delete course by id', (): void => {
+    courseComponent.deleteCourseById(1);
+    const coursesLength: number = courseComponent.courses.length;
+    expect(courseComponent.courses.length).toBe(coursesLength);
+  });
+  it('ngOnInit should log message', (): void => {
+    const consoleSpy = spyOn(console, 'log');
+    courseComponent.ngOnInit();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+  it('onFind should log message', (): void => {
+    const consoleSpy = spyOn(console, 'log');
+    courseComponent.onFind();
+    expect(consoleSpy).toHaveBeenCalled();
+  });
+});

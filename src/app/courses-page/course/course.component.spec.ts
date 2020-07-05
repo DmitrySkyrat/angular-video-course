@@ -22,3 +22,16 @@ describe('CourseComponent', (): void => {
     expect(component).toBeTruthy();
   });
 });
+describe('CourseComponent', (): void => {
+  let courseComponent: CourseComponent;
+  beforeEach((): void => {
+    courseComponent = new CourseComponent();
+  });
+  it('should delete course by EventEmitter', (): void => {
+    let emitResult: number = null;
+    const outputId = 2;
+    courseComponent.deleteById.subscribe((id: number) => (emitResult = id));
+    courseComponent.deleteCourse(outputId);
+    expect(emitResult).toBe(outputId);
+  });
+});
