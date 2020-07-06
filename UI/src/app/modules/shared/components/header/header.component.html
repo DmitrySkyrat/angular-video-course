@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="logo">
+    <img class="logo__img" src="assets/logo.png" />
+    <h1 class="logo__title">VIDEO COURSE</h1>
+  </div>
+  <div class="login">
+    <span class="login__title" *ngIf="authService.user">{{ user.login }}</span>
+    <span class="login__title" *ngIf="!authService.user">User login</span>
+    <input
+      class="login__button"
+      type="button"
+      [value]="authStatus"
+      (click)="checkAuthStatus()"
+    />
+  </div>
+</div>

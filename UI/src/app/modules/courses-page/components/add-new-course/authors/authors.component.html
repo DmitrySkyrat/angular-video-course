@@ -1,0 +1,31 @@
+<div class="container">
+  <label class="course-authors">Authors:</label>
+  <div class="toggling-container">
+    <button mat-raised-button type="button" (click)="onToggleDropdown()" color="primary">
+      Toggle Dropdown
+    </button>
+    <button
+      style="margin-left: 1rem;"
+      mat-raised-button
+      (click)="onResetSelection()"
+      color="primary"
+      type="button"
+    >
+      Reset Selection
+    </button>
+  </div>
+  <mat-select-autocomplete
+    class="grid-7-11"
+    [placeholder]="'Options Selection'"
+    [options]="options"
+    [display]="'name'"
+    [value]="'id'"
+    [multiple]="true"
+    [labelCount]="2"
+    [selectedOptions]="selectedOptions"
+    (selectionChange)="onSelect($event)"
+    (click)="onTouched()"
+  >
+    >
+  </mat-select-autocomplete>
+</div>

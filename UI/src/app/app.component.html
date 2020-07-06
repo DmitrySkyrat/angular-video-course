@@ -1,0 +1,12 @@
+<div>
+  <app-header></app-header>
+  <app-breadcrumbs *ngIf="authService.stream$ | async"></app-breadcrumbs>
+  <div class="base">
+    <app-loading-block
+      class="loading-block"
+      *ngIf="loadingService.isLoading$ | async"
+    ></app-loading-block>
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
+</div>

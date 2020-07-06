@@ -1,0 +1,68 @@
+.login-form {
+  border: 1px solid #e0e0e0;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 80%);
+  background-color: white;
+  height: 250px;
+  width: 350px;
+  padding: 28px 20px 26px;
+}
+.login-form__title {
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 11px;
+}
+.login-label__title {
+  font-size: 10px;
+  line-height: 12px;
+  margin-bottom: 5px;
+}
+.email-label__title {
+  font-size: 10px;
+  line-height: 12px;
+  margin-bottom: 5px;
+}
+.password-label__title {
+  font-size: 10px;
+  line-height: 12px;
+  margin-bottom: 5px;
+}
+.login-label__input {
+  height: 38px;
+  width: 304px;
+}
+.password-label__input {
+  height: 38px;
+  width: 304px;
+}
+.password {
+  margin-bottom: 22px;
+}
+.forgot-password {
+  left: 95px;
+  position: relative;
+}
+.forgot-password__link {
+  color: #2f80ed;
+  text-decoration: underline;
+  font-size: 12px;
+  line-height: 14px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.forgot-password__button {
+  height: 30px;
+  width: 124px;
+  background-color: #2f80ed;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 14px;
+  margin-left: 14px;
+  &:hover {
+    cursor: pointer;
+  }
+}

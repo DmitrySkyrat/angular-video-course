@@ -1,0 +1,28 @@
+.header {
+  background-color: rgb(68, 57, 57);
+  height: 80px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  margin-left: 150px;
+}
+.logo__img {
+  height: 30px;
+}
+.login {
+  margin-right: 30px;
+}
+.login__button {
+  margin-left: 10px;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(68, 57, 57);
+  color: white;
+  &:hover {
+    color: orange;
+  }
+}

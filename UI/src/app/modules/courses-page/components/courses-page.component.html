@@ -1,0 +1,37 @@
+<div class="courses">
+  <div class="search">
+    <input
+      matInput
+      aria-label="State"
+      class="search__input"
+      type="text"
+      placeholder="Text to search"
+      [formControl]="searchControl"
+    />
+  </div>
+  <div class="courses__content">
+    <button class="courses__add-course-button" (click)="addNewCourse()">
+      + Add course
+    </button>
+    <div
+      class="courses__list"
+      *ngIf="courses.length; else noData"
+      infinite-scroll
+      [infiniteScrollDistance]="scrollDistance"
+      [infiniteScrollThrottle]="throttle"
+      (scrolled)="onScrollDown()"
+    >
+      <app-course
+        class="courses__list-item"
+        *ngFor="let course of courses | orderBy"
+        [course]="course"
+        (deleteById)="onDelete($event)"
+      ></app-course>
+    </div>
+    <ng-template #noData>
+      <div class="no-data">
+        NO DATA. FEEL FREE TO ADD NEW COURSE
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.courses {
+  padding: 0 30px 0 150px;
+}
+.search {
+  padding-top: 20px;
+  &__input {
+    height: 30px;
+    width: 250px;
+  }
+  &__button {
+    background-color: rgb(27, 204, 80);
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+}
+.courses__add-course-button {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(0, 89, 255);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+.no-data {
+  background-color: white;
+  color: black;
+  border: 1px solid white;
+  text-align: center;
+}

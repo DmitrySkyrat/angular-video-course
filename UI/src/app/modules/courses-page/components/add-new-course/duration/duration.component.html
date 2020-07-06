@@ -1,0 +1,9 @@
+<label class="course-duration__title" for="duration-id">Duration</label>
+<input
+  class="input"
+  id="duration-id"
+  type="text"
+  [value]="duration"
+  (input)="onChange($event.target.value)"
+  (blur)="onTouch()"
+/>

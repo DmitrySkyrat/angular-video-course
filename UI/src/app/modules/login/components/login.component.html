@@ -1,0 +1,31 @@
+<div class="login">
+  <div class="login-form">
+    <h2 class="login-form__title">Login</h2>
+    <div class="login">
+      <label class="login-label">
+        <p class="login-label__title">login</p>
+        <input
+          class="login-label__input"
+          type="text"
+          [formControl]="loginControl"
+        />
+      </label>
+    </div>
+    <div class="password">
+      <label class="password-label">
+        <p class="password-label__title">password</p>
+        <input
+          class="password-label__input"
+          type="text"
+          [formControl]="passwordControl"
+        />
+      </label>
+    </div>
+    <div class="forgot-password">
+      <a class="forgot-password__link">Forgot password</a>
+      <button class="forgot-password__button" type="submit" (click)="logIn()">
+        Login
+      </button>
+    </div>
+  </div>
+</div>
