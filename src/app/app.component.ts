@@ -3,8 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'angular-video-course';
+  public title = 'angular-video-course';
+  public isAuth = true;
+
+  public checkAuth(newAuthStatus: boolean): void {
+    this.isAuth = newAuthStatus;
+  }
 }
