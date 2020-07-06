@@ -1,0 +1,58 @@
+<div class="new-course">
+  <form class="new-course-form">
+    <div class="new-course-form__title">
+      <label class="new-course-form__title-label">
+        <p class="new-course-form__title-p">Title:</p>
+        <input
+          type="text"
+          class="new-course-form__title-input"
+          [(ngModel)]="title"
+        />
+      </label>
+    </div>
+    <div class="new-course-form__description">
+      <label class="new-course-form__description-label">
+        <p class="new-course-form__description-p">Description:</p>
+        <textarea
+          class="new-course-form__title-textarea"
+          [(ngModel)]="description"
+        ></textarea>
+      </label>
+    </div>
+    <div class="new-course-form__date">
+      <label class="new-course-form__date-label">
+        <p class="new-course-form__date-p">Date:</p>
+        <input
+          type="text"
+          class="new-course-form__date-input"
+          [(ngModel)]="creationDate"
+        />
+      </label>
+    </div>
+    <div class="new-course-form__duration">
+      <label class="new-course-form__duration-label">
+        <p class="new-course-form__duration-p">Duration:</p>
+        <input
+          type="text"
+          class="new-course-form__duration-input"
+          [(ngModel)]="durationMin"
+        />
+        <span>{{ durationMin }}</span>
+      </label>
+    </div>
+    <div class="new-course-form__authors">
+      <label class="new-course-form__authors-label">
+        <p class="new-course-form__authors-p">Authors:</p>
+        <input
+          type="text"
+          class="new-course-form__authors-input"
+          [(ngModel)]="authors"
+        />
+      </label>
+    </div>
+    <div class="new-course-form__buttons">
+      <button class="new-course-form__save" type="submit">Save</button>
+      <button class="new-course-form__cancel">Cancel</button>
+    </div>
+  </form>
+</div>

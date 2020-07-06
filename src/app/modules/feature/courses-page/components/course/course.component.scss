@@ -1,0 +1,45 @@
+.course {
+  border: 3px solid rgb(223, 211, 211);
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.starActive{
+  background-color: rgb(202, 74, 202);
+}
+.course-data-title {
+  display: flex;
+}
+.course-title {
+  display: flex;
+  align-items: center;
+  img{
+    margin-left: 10px;
+  }
+}
+.course-data {
+  margin-left: 600px;
+  :first-child {
+    margin-right: 10px;
+  }
+}
+.course-description-config {
+  display: flex;
+  padding-top: 10px;
+}
+.course-config {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  button {
+    padding: 3px 30px;
+    background-color: rgb(0, 89, 255);
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+}
+.course-config-edit {
+  margin-right: 15px;
+}

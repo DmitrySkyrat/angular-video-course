@@ -1,0 +1,61 @@
+.login {
+  min-height: 800px;
+  background-color: rgb(223, 211, 211);
+}
+.login-form {
+  border: 1px solid #e0e0e0;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 110%);
+  background-color: white;
+  height: 250px;
+  width: 350px;
+  padding: 28px 20px 26px;
+  h2 {
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 11px;
+  }
+  p {
+    font-size: 10px;
+    line-height: 12px;
+    margin-bottom: 5px;
+  }
+  input {
+    height: 38px;
+    width: 304px;
+  }
+  button {
+    height: 30px;
+    width: 124px;
+    background-color: #2f80ed;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 14px;
+    margin-left: 14px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  a {
+    color: #2f80ed;
+    text-decoration: underline;
+    font-size: 12px;
+    line-height: 14px;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.login-email {
+  margin-bottom: 5px;
+}
+.login-password {
+  margin-bottom: 22px;
+}
+.login-forgot-password-submit {
+  left: 95px;
+  position: relative;
+}

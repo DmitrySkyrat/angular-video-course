@@ -1,0 +1,28 @@
+.header {
+  background-color: rgb(68, 57, 57);
+  height: 80px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header-logo {
+  display: flex;
+  margin-left: 150px;
+  img {
+    height: 30px;
+  }
+}
+.header-login {
+  margin-right: 30px;
+  input {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(68, 57, 57);
+    color: white;
+    &:hover {
+      color: orange;
+    }
+  }
+}
