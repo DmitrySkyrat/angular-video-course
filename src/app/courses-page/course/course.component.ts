@@ -12,8 +12,8 @@ export class CourseComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
-  deleteCourse(id: number): void {
+  public ngOnInit(): void {}
+  public deleteCourse(id: number): void {
     this.deleteById.emit(id);
   }
 }

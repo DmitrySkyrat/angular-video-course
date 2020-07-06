@@ -1,11 +1,16 @@
-<div class="course">
+<div
+  class="course"
+  [ngClass]="{ starActive: course.topRated }"
+  [appCreationDate]="course"
+>
   <div class="course-data-title">
     <div class="course-title">
-      <h3>Video Course {{ course.id }}. {{ course.title }}</h3>
+      <h3>Video Course {{ course.id }}. {{ course.title | uppercase }}</h3>
+      <img *ngIf="course.topRated" src="assets/logo2.png" />
     </div>
     <div class="course-data">
-      <span>{{ course.durationMin }}</span>
-      <span>{{ course.creationDate }}</span>
+      <span>{{ course.durationMin | duration }}</span>
+      <span>{{ course.creationDate | date: "d MMM, yyyy" }}</span>
     </div>
   </div>
   <div class="course-description-config">

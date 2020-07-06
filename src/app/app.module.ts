@@ -10,6 +10,10 @@ import { LoginComponent } from './header/login/login.component';
 import { CoursesPageComponent } from './courses-page/courses-page.component';
 import { CourseComponent } from './courses-page/course/course.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { CreationDateDirective } from './directives/creation-date.directive';
+import { DurationPipe } from './pipes/duration.pipe';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     CoursesPageComponent,
     CourseComponent,
     BreadcrumbsComponent,
+    CreationDateDirective,
+    DurationPipe,
+    OrderByPipe,
+    SearchFilterPipe,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoursesPageComponent } from './courses-page.component';
+import { SearchFilterPipe } from '../pipes/search-filter.pipe';
+import { OrderByPipe } from '../pipes/order-by.pipe';
 
 describe('CoursesPageComponent', (): void => {
   let component: CoursesPageComponent;
@@ -8,7 +10,7 @@ describe('CoursesPageComponent', (): void => {
 
   beforeEach(async((): void => {
     TestBed.configureTestingModule({
-      declarations: [CoursesPageComponent],
+      declarations: [CoursesPageComponent, OrderByPipe],
     }).compileComponents();
   }));
 
@@ -24,8 +26,10 @@ describe('CoursesPageComponent', (): void => {
 });
 describe('CoursesPageComponent', (): void => {
   let courseComponent: CoursesPageComponent;
+  let pipe: SearchFilterPipe;
   beforeEach((): void => {
-    courseComponent = new CoursesPageComponent();
+    pipe = new SearchFilterPipe();
+    courseComponent = new CoursesPageComponent(pipe);
   });
   it('delete course by id', (): void => {
     courseComponent.deleteCourseById(1);
