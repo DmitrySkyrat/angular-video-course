@@ -1,10 +1,10 @@
 <div>
   <app-header></app-header>
-  <app-breadcrumbs *ngIf="authService.stream$ | async"></app-breadcrumbs>
+  <app-breadcrumbs *ngIf="!this.route.url.includes('/login')"></app-breadcrumbs>
   <div class="base">
     <app-loading-block
       class="loading-block"
-      *ngIf="loadingService.isLoading$ | async"
+      *ngIf="this.loadingService.isLoading$ | async"
     ></app-loading-block>
     <router-outlet></router-outlet>
   </div>

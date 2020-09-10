@@ -2,17 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { ICourse } from '../models/course.model';
 import { CoursesService } from '../services/courses.service';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
-  switchMap,
   filter,
-  tap,
   finalize,
+  switchMap,
 } from 'rxjs/internal/operators';
 import { LoadingService } from '../../shared/services/loading.service';
 import { FormControl } from '@angular/forms';
+import { GetUser } from 'src/app/root-store/auth-store/actions/auth.actions';
+import { Store, select } from '@ngrx/store';
+import {
+  GetCourses,
+  DeleteCourse,
+} from 'src/app/root-store/courses-store/actions/courses.actions';
+import { getCourses } from 'src/app/root-store/courses-store/selectors/courses.selectors';
+import { IAppState } from 'src/app/root-store/app.state';
 
 @Component({
   selector: 'app-courses-page',
@@ -22,11 +29,14 @@ import { FormControl } from '@angular/forms';
 })
 export class CoursesPageComponent implements OnInit {
   constructor(
-    private coursesService: CoursesService,
     private route: Router,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    public coursesService: CoursesService,
+    public _store: Store<IAppState>
   ) {}
   public courses: ICourse[] = [];
+  public courses$: Observable<ICourse[]>;
+  public subscription: Subscription;
   public searchControl = new FormControl('');
   public minSearchTextLength = 3;
   public interval = 2000;
@@ -35,11 +45,26 @@ export class CoursesPageComponent implements OnInit {
   public count = 3;
   public throttle = 1000;
   public scrollDistance = 1;
+
   public ngOnInit(): void {
-    this.addItems(this.startIndex, 'push');
-    this.getInnerList();
+    this._store.dispatch(
+      new GetUser({
+        token: localStorage.getItem('access_token'),
+      })
+    );
+
+    this.courses$ = this._store.pipe(select(getCourses));
+    this.courses$.subscribe((courses: ICourse[]): void => {
+      this.courses = courses;
+    });
+    this.getSearchedCourses();
+
+    if (!this.courses.length) {
+      this.loadMore(this.startIndex);
+    }
   }
-  public getInnerList(): void {
+
+  public getSearchedCourses(): void {
     this.searchControl.valueChanges
       .pipe(
         filter(
@@ -48,49 +73,53 @@ export class CoursesPageComponent implements OnInit {
         ),
         debounceTime(this.interval),
         distinctUntilChanged(),
-        tap((): void => {
-          this.loadingService.changeLoadingStatus();
-        }),
         switchMap(
-          (searchText: string): Observable<ICourse[]> =>
-            this.coursesService
-              .getList(this.startIndex, this.count, searchText)
-              .pipe(
-                finalize((): void => {
-                  this.loadingService.changeLoadingStatus();
-                })
-              )
+          (searchText: string): Observable<ICourse[]> => {
+            this.loadingService.changeLoadingStatus();
+            this._store.dispatch(
+              new GetCourses({
+                start: this.startIndex,
+                count: this.count,
+                textFragment: searchText,
+              })
+            );
+            this.loadingService.changeLoadingStatus();
+            return this.courses$.pipe(
+              finalize((): void => {
+                this.loadingService.changeLoadingStatus();
+              })
+            );
+          }
         )
       )
-      .subscribe((data: ICourse[]): void => {
-        this.courses = data;
+      .subscribe((courses: ICourse[]): void => {
+        console.log('Store courses', this.courses$);
       });
   }
+
   public onDelete(id: number): void {
-    this.coursesService.removeItem(id).subscribe((): void => {});
-    this.startIndex = 0;
-    this.getInnerList();
+    this._store.dispatch(new DeleteCourse(id));
   }
   public addNewCourse(): void {
     this.route.navigate(['/courses/new']);
   }
   public onScrollDown(): void {
     this.startIndex += this.count;
-    this.addItems(this.startIndex, 'push');
+    this.loadMore(this.startIndex);
   }
-  public addItems(startIndex: number, _method: string): void {
+  public loadMore(startIndex: number): void {
     setTimeout((): void => {
       this.loadingService.changeLoadingStatus();
     });
-    this.coursesService
-      .getList(startIndex, this.count, this.searchControl.value)
-      .pipe(
-        finalize((): void => {
-          this.loadingService.changeLoadingStatus();
-        })
-      )
-      .subscribe((newData: ICourse[]): void => {
-        this.courses[_method](...newData);
-      });
+    this._store.dispatch(
+      new GetCourses({
+        start: startIndex,
+        count: this.count,
+        textFragment: this.searchControl.value,
+      })
+    );
+    setTimeout((): void => {
+      this.loadingService.changeLoadingStatus();
+    });
   }
 }

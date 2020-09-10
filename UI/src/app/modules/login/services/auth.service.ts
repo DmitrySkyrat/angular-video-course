@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser, IToken } from '../models/user.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { LoadingService } from '../../shared/services/loading.service';
-import { finalize } from 'rxjs/internal/operators';
+import { finalize, tap } from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private fakeToken: IToken;
-
-  public stream$: Subject<boolean> = new Subject<boolean>();
-  public counter = 0;
-  public user: IUser;
   public user$: Subject<IUser> = new Subject<IUser>();
+  public isLogged$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    localStorage.getItem('access_token')
+  );
+  constructor(
+    private http: HttpClient,
+    public loadingService: LoadingService
+  ) {}
 
-  constructor(private http: HttpClient, public loadingService: LoadingService) {
-    this.fakeToken = { token: localStorage.token };
-  }
-
-  public login(login: string, password: string): IUser {
+  public login(login: string, password: string): Observable<IToken> {
     this.loadingService.changeLoadingStatus();
-    this.http
+    return this.http
       .post<IToken>('http://localhost:3004/auth/login', {
         login: login,
         password: password,
@@ -30,36 +29,35 @@ export class AuthService {
       .pipe(
         finalize((): void => {
           this.loadingService.changeLoadingStatus();
-          console.log(this.loadingService.isLoading);
+        }),
+        tap((fakeToken: IToken): void => {
+          this.fakeToken = fakeToken;
+          this.isLogged$.next(localStorage.getItem('access_token'));
         })
-      )
-      .subscribe((fakeToken: IToken): void => {
-        this.fakeToken = fakeToken;
-        localStorage.token = fakeToken.token;
-        const id: number = this.counter++;
-        const newUser: IUser = {
-          id,
-          token: fakeToken,
-          login,
-          password,
-        };
-        this.user = newUser;
-        this.user$.next(this.user);
-        console.log(fakeToken);
-      });
-    return this.user;
+      );
   }
   public logout(): void {
     this.fakeToken = null;
-    this.stream$.next(false);
   }
   public isAuthenticated(): boolean {
-    this.stream$.next(!!this.fakeToken);
-    return !!this.fakeToken;
+    this.isLogged$.next(localStorage.getItem('access_token'));
+    return !!localStorage.getItem('access_token');
   }
-  public getUserInfo(): Observable<IUser> {
-    return this.http.post<IUser>('http://localhost:3004/auth/userinfo', {
-      token: this.fakeToken,
+  public getUserInfo(token: IToken): Observable<IUser> {
+    setTimeout((): void => {
+      this.loadingService.changeLoadingStatus();
     });
+    return this.http
+      .post<IUser>('http://localhost:3004/auth/userinfo', {
+        token: token.token,
+      })
+      .pipe(
+        tap((user: IUser): void => {
+          this.user$.next(user);
+        }),
+        finalize((): void => {
+          this.loadingService.changeLoadingStatus();
+        })
+      );
   }
 }

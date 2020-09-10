@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IUser } from 'src/app/modules/login/models/user.model';
-import { AuthService } from 'src/app/modules/login/services/auth.service';
-import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { LogIn } from 'src/app/root-store/auth-store/actions/auth.actions';
+import { IAppState } from 'src/app/root-store/app.state';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +10,16 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private _store: Store<IAppState>) {}
   public loginControl = new FormControl('');
   public passwordControl = new FormControl('');
-  public user: IUser;
   public ngOnInit(): void {}
   public logIn(): void {
-    this.user = this.authService.login(
-      this.loginControl.value,
-      this.passwordControl.value
+    this._store.dispatch(
+      new LogIn({
+        login: this.loginControl.value,
+        password: this.passwordControl.value,
+      })
     );
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/courses']);
-    }
   }
 }

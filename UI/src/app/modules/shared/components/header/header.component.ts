@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/login/services/auth.service';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/app/modules/login/models/user.model';
+import { map } from 'rxjs/internal/operators';
+import { LogOut } from 'src/app/root-store/auth-store/actions/auth.actions';
+import { Store } from '@ngrx/store';
+import { IAuthState } from 'src/app/root-store/auth-store/state/auth.state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header',
@@ -10,22 +14,25 @@ import { IUser } from 'src/app/modules/login/models/user.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private router: Router, public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    public _store: Store<IAuthState>,
+    public translate: TranslateService
+  ) {}
   public authStatus = 'Log in';
-  public user: IUser;
+  public user$: Observable<string>;
   public ngOnInit(): void {
-    this.authService.stream$.subscribe((value: boolean): void => {
+    this.authService.isLogged$.subscribe((value: string): void => {
       if (value) {
         this.authStatus = 'Log off';
       }
     });
-    this.authService.user$.subscribe((currentUser: IUser): void => {
-      this.user = currentUser;
-    });
+    this.user$ = this.authService.user$.pipe(
+      map((user: IUser): string => user.login)
+    );
   }
-  public checkAuthStatus(): void {
+  public LogOut(): void {
     this.authStatus = 'Log in';
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this._store.dispatch(new LogOut());
   }
 }

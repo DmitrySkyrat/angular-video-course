@@ -2,18 +2,10 @@
   padding: 0 30px 0 150px;
 }
 .search {
-  padding-top: 20px;
+  padding: 20px 0px 20px;
   &__input {
     height: 30px;
     width: 250px;
-  }
-  &__button {
-    background-color: rgb(27, 204, 80);
-    border: none;
-    border-radius: 3px;
-    padding: 10px;
-    color: white;
-    cursor: pointer;
   }
 }
 .courses__add-course-button {

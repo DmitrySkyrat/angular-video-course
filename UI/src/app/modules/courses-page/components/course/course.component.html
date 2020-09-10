@@ -5,21 +5,35 @@
 >
   <div class="course-header">
     <div class="course-name">
-      <h3 class="course-name__title">Video Course {{ course.id }}. {{ course.name | uppercase }}</h3>
-      <img class="course-name__img" *ngIf="course.isTopRated" src="assets/logo2.png" />
+      <h3 class="course-name__title">
+        {{ "COURSE.TITLE" | translate }} {{ course.id }}.
+        {{ course.name | uppercase }}
+      </h3>
+      <img
+        class="course-name__img"
+        *ngIf="course.isTopRated"
+        src="assets/logo2.png"
+      />
     </div>
     <div class="course-date">
       <span class="course-date__duration">{{ course.length | duration }}</span>
-      <span class="course-date__creation-date">{{ course.date | date: "dd/MM/yyyy" }}</span>
+      <span class="course-date__creation-date">{{
+        course.date | date: "MM/dd/yyyy"
+      }}</span>
     </div>
   </div>
   <div class="course-info">
     <div class="course-info__description">{{ course.description }}</div>
     <div class="course-update">
-      <button class="course-update__edit" [routerLink]="['/courses', course.id]">
-        Edit
+      <button
+        class="course-update__edit"
+        [routerLink]="['/courses', course.id]"
+      >
+        {{ "COURSE.BUTTON.EDIT" | translate }}
       </button>
-      <button class="course-update__delete" (click)="deleteCourse(course.id)">Delete</button>
+      <button class="course-update__delete" (click)="deleteCourse(course.id)">
+        {{ "COURSE.BUTTON.DELETE" | translate }}
+      </button>
     </div>
   </div>
 </div>

@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  ICourse,
   IAuthor,
   VideoCourse,
   ICourseAuthor,
+  IGetCourseByIdResponse,
+  ICourse,
 } from '../../models/course.model';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { filter, mergeMap } from 'rxjs/internal/operators';
+import { filter, map, mergeMap } from 'rxjs/internal/operators';
 import { CoursesService } from '../../services/courses.service';
 import { ObservableInput } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { IAppState } from 'src/app/root-store/app.state';
+import { Store } from '@ngrx/store';
+import {
+  CreateCourse,
+  UpdateCourse,
+} from 'src/app/root-store/courses-store/actions/courses.actions';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-add-new-course',
   templateUrl: './add-new-course.component.html',
@@ -20,7 +28,9 @@ export class AddNewCourseComponent implements OnInit {
     private route: ActivatedRoute,
     private coursesService: CoursesService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private _store: Store<IAppState>,
+    private datePipe: DatePipe
   ) {}
   public form: FormGroup;
   public titleMaxLength = 50;
@@ -41,11 +51,12 @@ export class AddNewCourseComponent implements OnInit {
         )
       )
       .subscribe((course: ICourse): void => {
-        console.log('Selected course', course);
         this.form.get('id').patchValue(course.id);
         this.form.get('title').patchValue(course.name);
         this.form.get('description').patchValue(course.description);
-        this.form.get('date').patchValue(course.date);
+        this.form
+          .get('date')
+          .patchValue(this.datePipe.transform(course.date, 'MM/dd/yyyy'));
         this.form.get('duration').patchValue(course.length);
         this.selectedCourseAuthors = course.authors.map(
           (courseAuthor: ICourseAuthor): IAuthor => {
@@ -61,9 +72,6 @@ export class AddNewCourseComponent implements OnInit {
   public cancel(): void {
     this.router.navigate(['/courses']);
   }
-  public save(): void {
-    this.router.navigate(['/courses']);
-  }
   public createForm(): void {
     this.form = this.formBuilder.group({
       id: [null],
@@ -77,7 +85,7 @@ export class AddNewCourseComponent implements OnInit {
       ],
       date: [null, [Validators.required]],
       duration: [null, [Validators.required]],
-      authors: [null, [Validators.required]],
+      authors: [[], [Validators.required]],
     });
   }
   public onFormSubmit(): void {
@@ -87,29 +95,28 @@ export class AddNewCourseComponent implements OnInit {
       return;
     }
     if (authorsObject.id) {
-      this.coursesService
-        .updateCourse(
-          authorsObject.id,
-          authorsObject.name,
-          authorsObject.description,
-          authorsObject.date,
-          authorsObject.length,
-          authorsObject.authors,
-          authorsObject.isTopRated
-        )
-        .subscribe((course: ICourse): void => {});
+      this._store.dispatch(
+        new UpdateCourse({
+          id: authorsObject.id,
+          name: authorsObject.name,
+          description: authorsObject.description,
+          date: authorsObject.date.toString(),
+          length: authorsObject.length,
+          authors: authorsObject.authors,
+          isTopRated: authorsObject.isTopRated,
+        })
+      );
     } else {
-      this.coursesService
-        .createCourse(
-          authorsObject.id,
-          authorsObject.name,
-          authorsObject.description,
-          authorsObject.date,
-          authorsObject.length,
-          authorsObject.authors,
-          authorsObject.isTopRated
-        )
-        .subscribe((course: ICourse): void => {});
+      this._store.dispatch(
+        new CreateCourse({
+          name: authorsObject.name,
+          description: authorsObject.description,
+          date: authorsObject.date.toString(),
+          length: authorsObject.length,
+          authors: authorsObject.authors,
+          isTopRated: authorsObject.isTopRated,
+        })
+      );
     }
     this.form.reset();
     this.router.navigate(['/courses']);

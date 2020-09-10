@@ -6,9 +6,14 @@ import { ICourse } from '../models/course.model';
 })
 export class OrderByPipe implements PipeTransform {
   transform(courses: ICourse[]): ICourse[] {
-    return courses.sort(
-      (a: ICourse, b: ICourse): number =>
-        +new Date(a.date) - +new Date(b.date)
-    );
+    console.log('order source', courses);
+    if (courses) {
+      return courses
+        .concat()
+        .sort(
+          (a: ICourse, b: ICourse): number =>
+            +new Date(a.date) - +new Date(b.date)
+        );
+    }
   }
 }

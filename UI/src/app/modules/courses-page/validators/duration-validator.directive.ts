@@ -17,7 +17,7 @@ export class DurationDirective implements Validator {
     const pattern: RegExp = /^[0-9]+$/;
     const valid = !control.value || pattern.test(control.value);
     if (valid) {
-      return { duration: false };
+      return null;
     } else {
       return { duration: true };
     }

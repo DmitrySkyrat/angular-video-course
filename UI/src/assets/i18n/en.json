@@ -1,0 +1,54 @@
+{
+  "LOGO": {
+    "TITLE": "VIDEO COURSE"
+  },
+  "COURSES": {
+    "TITLE": "Courses",
+    "WELCOME": "Thank you {{name}}, you are awesome",
+    "RETURN": "Return to courses page",
+    "ADD_COURSE_BUTTON": {
+      "TITLE": "Add course"
+    },
+    "NO_DATA": "NO DATA. FEEL FREE TO ADD NEW COURSE"
+  },
+  "ADD_NEW_COURSE": {
+    "TITLE": "Title",
+    "DESCRIPTION": "Description",
+    "DATE": "Date",
+    "DURATION": "Duration",
+    "AUTHORS": "Authors",
+    "BUTTON": {
+      "TOGGLE": "Toggle DropDown",
+      "RESET": "Reset Selection"
+    },
+    "ERRORS": {
+      "REQUIRED": {
+        "TITLE": "Title is required",
+        "DESCRIPTION": "Description is required",
+        "DATE": "Date is required",
+        "DURATION": "Duration is required",
+        "AUTHORS": "Authors are required"
+      },
+      "VALIDATION": {
+        "TITLE": "Title shouldn't be more then 50 symbols",
+        "DESCRIPTION": "Description shouldn't be more then 500 symbols",
+        "DATE": "This date is not allowed. Date format should be '00/00/0000'",
+        "DURATION": "Duration should only have numbers"
+      }
+    }
+  },
+  "COURSE": {
+    "TITLE": "Video Course",
+    "BUTTON": {
+      "DELETE": "Delete",
+      "EDIT": "Edit"
+    }
+  },
+  "DROP_DOWN": {
+    "LANG": {
+      "RU": "Russian",
+      "EN": "English"
+    },
+    "TITLE": "Language"
+  }
+}

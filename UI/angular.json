@@ -127,5 +127,8 @@
       }
     }
   },
-  "defaultProject": "angular-video-course"
+  "defaultProject": "angular-video-course",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

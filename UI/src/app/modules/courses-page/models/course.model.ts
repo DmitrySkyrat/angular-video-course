@@ -2,13 +2,39 @@ import { FormGroup } from '@angular/forms';
 export interface ICourse {
   id: number;
   name: string;
-  date: string;
+  date: Date;
   length: number;
   description: string;
   authors?: ICourseAuthor[];
   isTopRated: boolean;
 }
 
+export interface ICourseUpdateRequest {
+  id: number;
+  name: string;
+  date: string;
+  length: number;
+  description: string;
+  authors?: ICourseAuthor[];
+  isTopRated: boolean;
+}
+export interface IGetCourseByIdResponse {
+  id: number;
+  name: string;
+  date: string;
+  length: number;
+  description: string;
+  authors?: ICourseAuthor[];
+  isTopRated: boolean;
+}
+export interface ICreateCourseRequest {
+  name: string;
+  date: string;
+  length: number;
+  description: string;
+  authors?: ICourseAuthor[];
+  isTopRated: boolean;
+}
 export interface ICourseAuthor {
   id: number;
   name: string;
@@ -18,11 +44,16 @@ export interface IAuthor {
   id: string;
   name: string;
 }
+export interface ICoursesRequest {
+  start: number;
+  count: number;
+  textFragment: string;
+}
 export class VideoCourse implements ICourse {
   id: number;
   name: string;
   description: string;
-  date: string;
+  date: Date;
   length: number;
   authors: ICourseAuthor[];
   isTopRated: boolean;

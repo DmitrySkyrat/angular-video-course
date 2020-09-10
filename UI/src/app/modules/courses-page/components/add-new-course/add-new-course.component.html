@@ -1,7 +1,9 @@
 <div class="new-course">
   <form class="course-form" [formGroup]="form" (ngSubmit)="onFormSubmit()">
     <div class="container">
-      <label class="course-title" for="title-id">Title:</label>
+      <label class="course-title" for="title-id"
+        >{{ "ADD_NEW_COURSE.TITLE" | translate }}:</label
+      >
       <input class="input" id="title-id" type="text" formControlName="title" />
       <p
         class="error"
@@ -9,16 +11,16 @@
           form.get('title').hasError('required') && form.get('title').touched
         "
       >
-        Title is required
+        {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.TITLE" | translate }}
       </p>
       <p class="error" *ngIf="form.get('title').errors?.maxlength">
-        Title shouldn't be more then 50 symbols
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.TITLE" | translate }}
       </p>
     </div>
 
     <div class="container">
       <label class="course-description" for="description-id"
-        >Description:</label
+        >{{ "ADD_NEW_COURSE.DESCRIPTION" | translate }}:</label
       >
       <textarea
         class="course-description__textarea"
@@ -32,10 +34,10 @@
           form.get('description').touched
         "
       >
-        Description is required
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DESCRIPTION" | translate }}
       </p>
       <p class="error" *ngIf="form.get('description').errors?.maxlength">
-        Description shouldn't be more then 500 symbols
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DESCRIPTION" | translate }}
       </p>
     </div>
 
@@ -47,13 +49,11 @@
           form.get('date').hasError('required') && form.get('date').touched
         "
       >
-        Date is required
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DATE" | translate }}
       </p>
       <p class="error" *ngIf="form.get('date').errors?.customDate">
-        This date is not allowed. Date format should be '00/00/0000'
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DATE" | translate }}
       </p>
-      <h1>{{ form.get("date").invalid | json }}</h1>
-      <h1>{{ form.get("date").value }}</h1>
     </div>
 
     <div class="container">
@@ -65,13 +65,11 @@
           form.get('duration').touched
         "
       >
-        Duration is required
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DURATION" | translate }}
       </p>
       <p class="error" *ngIf="form.get('duration').errors?.duration">
-        Duration should only have numbers
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DURATION" | translate }}
       </p>
-      <h1>{{ form.get("duration").invalid | json }}</h1>
-      <h1>{{ form.get("duration").value }}</h1>
     </div>
 
     <div class="container">
@@ -86,7 +84,7 @@
           form.get('authors').touched
         "
       >
-        Authors are required
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.AUTHORS" | translate }}
       </p>
       <div>
         <b>Selected options: </b>
@@ -103,11 +101,9 @@
     <div class="container">
       <div class="course-buttons">
         <button class="button" type="submit" [disabled]="form.invalid">
-          {{ !!form.value.title ? "Update" : "Save" }}
+          {{ !!form.value.id ? "Update" : "Save" }}
         </button>
-        <button class="button button__cancel" (click)="cancel()">
-          Cancel
-        </button>
+        <button class="button button__cancel" (click)="cancel()">Cancel</button>
       </div>
     </div>
   </form>

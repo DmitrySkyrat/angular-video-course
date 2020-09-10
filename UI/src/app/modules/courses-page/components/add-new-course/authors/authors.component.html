@@ -1,11 +1,18 @@
 <div class="container">
-  <label class="course-authors">Authors:</label>
+  <label class="course-authors"
+    >{{ "ADD_NEW_COURSE.AUTHORS" | translate }}:</label
+  >
   <div class="toggling-container">
-    <button mat-raised-button type="button" (click)="onToggleDropdown()" color="primary">
+    <button
+      mat-raised-button
+      type="button"
+      (click)="onToggleDropdown()"
+      color="primary"
+    >
       Toggle Dropdown
     </button>
     <button
-      style="margin-left: 1rem;"
+      style="margin-left: 1rem"
       mat-raised-button
       (click)="onResetSelection()"
       color="primary"

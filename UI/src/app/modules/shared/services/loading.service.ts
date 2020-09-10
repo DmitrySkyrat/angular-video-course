@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,5 +11,6 @@ export class LoadingService {
   public changeLoadingStatus(): void {
     this.isLoading = !this.isLoading;
     this.isLoading$.next(this.isLoading);
+    console.log('changeLoadingStatus');
   }
 }

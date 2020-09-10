@@ -11,11 +11,11 @@
   </div>
   <div class="courses__content">
     <button class="courses__add-course-button" (click)="addNewCourse()">
-      + Add course
+      + {{ "COURSES.ADD_COURSE_BUTTON.TITLE" | translate }}
     </button>
     <div
       class="courses__list"
-      *ngIf="courses.length; else noData"
+      *ngIf="(courses$ | async).length; else noData"
       infinite-scroll
       [infiniteScrollDistance]="scrollDistance"
       [infiniteScrollThrottle]="throttle"
@@ -23,15 +23,13 @@
     >
       <app-course
         class="courses__list-item"
-        *ngFor="let course of courses | orderBy"
+        *ngFor="let course of courses$ | async | orderBy"
         [course]="course"
         (deleteById)="onDelete($event)"
       ></app-course>
     </div>
     <ng-template #noData>
-      <div class="no-data">
-        NO DATA. FEEL FREE TO ADD NEW COURSE
-      </div>
+      <div class="no-data">{{ "COURSES.NO_DATA" | translate }}</div>
     </ng-template>
   </div>
 </div>

@@ -7,6 +7,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
 import { MaterialModule } from 'src/app/modules/material/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { MaterialModule } from 'src/app/modules/material/material.module';
     ErrorComponent,
     LoadingBlockComponent,
   ],
-  imports: [CommonModule, AppRoutingModule, MaterialModule],
+  imports: [CommonModule, AppRoutingModule, MaterialModule, TranslateModule],
   exports: [
     HeaderComponent,
     BreadcrumbsComponent,

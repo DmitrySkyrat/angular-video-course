@@ -16,6 +16,7 @@ import { DateComponent } from './components/add-new-course/date/date.component';
 import { DurationComponent } from './components/add-new-course/duration/duration.component';
 import { DateValidatorDirective } from './validators/date-validator.directive';
 import { DurationDirective } from './validators/duration-validator.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { DurationDirective } from './validators/duration-validator.directive';
     CoursesPageRoutingModule,
     InfiniteScrollModule,
     FormsModule,
+    TranslateModule,
   ],
-  exports: [],
+  exports: [TranslateModule],
   providers: [SearchFilterPipe],
 })
 export class CoursesPageModule {}
