@@ -1,0 +1,11 @@
+<label class="course-date__title" for="date-id"
+  >{{ "ADD_NEW_COURSE.DATE" | translate }}:</label
+>
+<input
+  class="input"
+  id="date-id"
+  type="text"
+  [value]="date"
+  (input)="onChange($event.target.value)"
+  (blur)="onTouch()"
+/>

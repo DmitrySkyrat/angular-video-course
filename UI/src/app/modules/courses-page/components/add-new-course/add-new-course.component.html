@@ -1,0 +1,110 @@
+<div class="new-course">
+  <form class="course-form" [formGroup]="form" (ngSubmit)="onFormSubmit()">
+    <div class="container">
+      <label class="course-title" for="title-id"
+        >{{ "ADD_NEW_COURSE.TITLE" | translate }}:</label
+      >
+      <input class="input" id="title-id" type="text" formControlName="title" />
+      <p
+        class="error"
+        *ngIf="
+          form.get('title').hasError('required') && form.get('title').touched
+        "
+      >
+        {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.TITLE" | translate }}
+      </p>
+      <p class="error" *ngIf="form.get('title').errors?.maxlength">
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.TITLE" | translate }}
+      </p>
+    </div>
+
+    <div class="container">
+      <label class="course-description" for="description-id"
+        >{{ "ADD_NEW_COURSE.DESCRIPTION" | translate }}:</label
+      >
+      <textarea
+        class="course-description__textarea"
+        id="description-id"
+        formControlName="description"
+      ></textarea>
+      <p
+        class="error"
+        *ngIf="
+          form.get('description').hasError('required') &&
+          form.get('description').touched
+        "
+      >
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DESCRIPTION" | translate }}
+      </p>
+      <p class="error" *ngIf="form.get('description').errors?.maxlength">
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DESCRIPTION" | translate }}
+      </p>
+    </div>
+
+    <div class="container">
+      <app-date formControlName="date" customDate></app-date>
+      <p
+        class="error"
+        *ngIf="
+          form.get('date').hasError('required') && form.get('date').touched
+        "
+      >
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DATE" | translate }}
+      </p>
+      <p class="error" *ngIf="form.get('date').errors?.customDate">
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DATE" | translate }}
+      </p>
+    </div>
+
+    <div class="container">
+      <app-duration formControlName="duration" appDuration></app-duration>
+      <p
+        class="error"
+        *ngIf="
+          form.get('duration').hasError('required') &&
+          form.get('duration').touched
+        "
+      >
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.DURATION" | translate }}
+      </p>
+      <p class="error" *ngIf="form.get('duration').errors?.duration">
+        {{ "ADD_NEW_COURSE.ERRORS.VALIDATION.DURATION" | translate }}
+      </p>
+    </div>
+
+    <div class="container">
+      <app-authors
+        formControlName="authors"
+        [selectedAuthors]="selectedCourseAuthors"
+      ></app-authors>
+      <p
+        class="error"
+        *ngIf="
+          form.get('authors').hasError('required') &&
+          form.get('authors').touched
+        "
+      >
+      {{ "ADD_NEW_COURSE.ERRORS.REQUIRED.AUTHORS" | translate }}
+      </p>
+      <div>
+        <b>Selected options: </b>
+        <span
+          *ngFor="let option of form.get('authors').value; let index = index"
+          >{{ option.name
+          }}<span *ngIf="index !== form.get('authors').value.length - 1"
+            >,
+          </span></span
+        >
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="course-buttons">
+        <button class="button" type="submit" [disabled]="form.invalid">
+          {{ !!form.value.id ? "Update" : "Save" }}
+        </button>
+        <button class="button button__cancel" (click)="cancel()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,39 @@
+<div class="header">
+  <div class="logo">
+    <img class="logo__img" src="assets/logo.png" />
+    <h1 class="logo__title">{{ "LOGO.TITLE" | translate }}</h1>
+  </div>
+  <div class="login">
+    <span class="login__title" *ngIf="authService.isAuthenticated()">{{
+      user$ | async
+    }}</span>
+    <span class="login__title" *ngIf="!authService.isAuthenticated()"
+      >User login</span
+    >
+    <input
+      class="login__button"
+      type="button"
+      [value]="authStatus"
+      (click)="LogOut()"
+    />
+    <mat-form-field class="translation-form">
+      <mat-label class="translation-form__label">{{
+        "DROP_DOWN.TITLE" | translate
+      }}</mat-label>
+      <mat-select class="translation-select" disableRipple>
+        <mat-option
+          value="1"
+          (click)="translate.use('ru')"
+          [ngClass]="{ red: true }"
+          >{{ "DROP_DOWN.LANG.RU" | translate }}</mat-option
+        >
+        <mat-option
+          class="translation-select__option"
+          value="2"
+          (click)="translate.use('en')"
+          >{{ "DROP_DOWN.LANG.EN" | translate }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+.course {
+  border: 3px solid rgb(223, 211, 211);
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.starActive {
+  background-color: rgb(202, 74, 202);
+}
+.course-header {
+  display: flex;
+}
+.course-name {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+.course-name__img {
+  margin-left: 10px;
+}
+.course-date {}
+.course-date__duration {
+  margin-right: 10px;
+}
+.course-info {
+  display: flex;
+  padding-top: 10px;
+}
+.course-update {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.course-update__edit {
+  margin-right: 15px;
+  padding: 3px 30px;
+  background-color: rgb(0, 89, 255);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
+.course-update__delete {
+  padding: 3px 30px;
+  background-color: rgb(0, 89, 255);
+  color: white;
+  cursor: pointer;
+  border: none;
+}
